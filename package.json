@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/risseraka/node-url42/issues"
   },
-  "homepage": "https://github.com/risseraka/node-url42"
+  "homepage": "https://github.com/risseraka/node-url42",
+  "devDependencies": {
+    "mocha": "^2.1.0"
+  }
 }
