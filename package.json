@@ -1,0 +1,25 @@
+{
+  "name": "url42",
+  "version": "0.0.3",
+  "description": "Easy URL manipulation",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha test"
+  },
+  "author": "Adrien Risser",
+  "license": "ISC",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://risseraka@github.com/risseraka/node-url42"
+  },
+  "keywords": [
+    "url"
+  ],
+  "bugs": {
+    "url": "https://github.com/risseraka/node-url42/issues"
+  },
+  "homepage": "https://github.com/risseraka/node-url42"
+}
