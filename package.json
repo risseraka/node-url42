@@ -4,7 +4,7 @@
   "description": "Easy URL manipulation",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha test"
+    "test": "NODE_ENV=test istanbul cover _mocha -- -R spec test/"
   },
   "author": "Adrien Risser",
   "license": "ISC",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/risseraka/node-url42",
   "devDependencies": {
+    "istanbul": "^0.3.7",
     "mocha": "^2.1.0"
   }
 }

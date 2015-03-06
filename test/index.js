@@ -5,10 +5,10 @@ var assert = require('assert');
 
 var url42 = require('..');
 
-function testWithoutArguments(funcName) {
+function testWithoutArguments(methodName) {
   var result = url42('first');
 
-  assert.throws(result[funcName].bind(this), Error, 'should throw error');
+  assert.throws(result[methodName].bind(result), Error);
 }
 
 /*
@@ -120,27 +120,27 @@ var tests = {
 
 };
 
-function testWithUrls(funcName) {
-  var relativeTests = tests[funcName];
+function testWithUrls(methodName) {
+  var relativeTests = tests[methodName];
 
   relativeTests.forEach(function(relativeTest) {
-    var a = url42(relativeTest[0], relativeTest[1])[funcName]().format();
+    var a = url42(relativeTest[0], relativeTest[1])[methodName]().format();
     var e = relativeTest[2];
 
     assert.equal(
       a, e,
-      funcName + '(' + [relativeTest[0], relativeTest[1]] + ') == ' + e +
+      methodName + '(' + [relativeTest[0], relativeTest[1]] + ') == ' + e +
         '\n  actual=' + a);
   });
 }
 
-function testCalledTwice(funcName, shouldMatch) {
+function testCalledTwice(methodName, shouldMatch) {
   var a = '/path/bla?toto=lala', b = '/testouille?lala=toto';
 
-  var url = url42(a, b)[funcName]();
+  var url = url42(a, b)[methodName]();
 
   var result1 = url.format();
-  var result2 = url[funcName]().format();
+  var result2 = url[methodName]().format();
 
   assert[shouldMatch ? 'equal' : 'notEqual'](
     result1,
@@ -191,11 +191,22 @@ describe('url42', function () {
 
   });
 
-  describe('setPath', function () {
+  describe('all methods', function () {
+    var allMethods = [
+      'setPath', 'joinPath', 'mergePath', 'setQuery', 'joinQuery', 'mergeQuery'
+    ];
 
     it('should throw an error when called without argument', function () {
-      testWithoutArguments('setPath');
+      allMethods.forEach(function (methodName) {
+        var result = url42('first');
+
+        assert.throws(result[methodName].bind(result), Error);
+      });
     });
+
+  });
+
+  describe('setPath', function () {
 
     it('should set given path as root', function () {
       testWithUrls('setPath');
@@ -209,10 +220,6 @@ describe('url42', function () {
 
   describe('joinPath', function () {
 
-    it('should throw an error when called without argument', function () {
-      testWithoutArguments('joinPath');
-    });
-
     it('should add given path as child', function () {
       testWithUrls('joinPath');
     });
@@ -224,10 +231,6 @@ describe('url42', function () {
   });
 
   describe('mergePath', function () {
-
-    it('should throw an error when called without argument', function () {
-      testWithoutArguments('mergePath');
-    });
 
     it('should merge given paths', function () {
       testWithUrls('mergePath');
@@ -241,10 +244,6 @@ describe('url42', function () {
 
   describe('setQuery', function () {
 
-    it('should throw an error when called without argument', function () {
-      testWithoutArguments('setQuery');
-    });
-
     it('should set url\'s query', function () {
       testWithUrls('setQuery');
     });
@@ -257,10 +256,6 @@ describe('url42', function () {
 
   describe('joinQuery', function () {
 
-    it('should throw an error when called without argument', function () {
-      testWithoutArguments('joinQuery');
-    });
-
     it('should merge urls\' queries', function () {
       testWithUrls('joinQuery');
     });
@@ -272,10 +267,6 @@ describe('url42', function () {
   });
 
   describe('mergeQuery', function () {
-
-    it('should throw an error when called without argument', function () {
-      testWithoutArguments('mergeQuery');
-    });
 
     it('should merge urls\' queries', function () {
       testWithUrls('mergeQuery');
